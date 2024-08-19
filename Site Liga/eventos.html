@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Link para Font Awesome para ícone do Instagram -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.3s, color 0.3s;
+        }
+    
+        main {
+            flex: 1;
+            padding-top: 80px;
+            padding-bottom: 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        footer {
+            background-color: #FF8279;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            position: relative;
+            width: 100%;
+            margin-top: 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        footer p {
+            margin: 0;
+        }
+        .event-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .carousel-item img {
+            max-width: 300px;
+            height: auto;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .event-details {
+            margin-left: 20px;
+        }
+        .event-details h2 {
+            font-size: 32px;
+            color: #008cf000;
+        }
+        .event-details p {
+            font-size: 16px;
+            color: #333;
+        }
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 300px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            transform: translateX(100%);
+            transition: transform 0.3s;
+            z-index: 1100;
+            padding: 15px;
+            overflow: auto;
+        }
+        .side-menu.open {
+            transform: translateX(0);
+        }
+        .side-menu .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+        }
+        .side-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 60px 0 0;
+        }
+        .side-menu ul li {
+            margin: 20px 0;
+        }
+        .side-menu ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+        }
+        .side-menu ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Modo noturno */
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        .header.dark-mode {
+            background-color: #333;
+        }
+        footer.dark-mode {
+            background-color: #333;
+            color: #e0e0e0;
+        }
+        .event-container.dark-mode {
+            background-color: #333;
+            color: #e0e0e0;
+        }
+        .event-details h2 {
+            color: #e0e0e0;
+        }
+        .event-details p {
+            color: #b3b3b3;
+        }
+
+        /* Estilo do modal */
+        .modal {
+            display: none; /* Oculta o modal por padrão */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        .modal-content {
+            margin: 15% auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        .close {
+            color: #fff;
+            float: right;
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header d-flex justify-content-between align-items-center">
+        <a href="index.html" class="btn btn-primary">
+            <img src="image/home-01-stroke-rounded.svg" alt="Voltar para home">
+        </a>
+        <img src="image/Logo_liga.svg" alt="Logo da Liga" class="logo mx-auto">
+        <button class="btn btn-menu" type="button" id="menuBtn">
+            <img src="image/menu-aberto.png" alt="Menu Icon" class="menu-icon">
+        </button>
+        <button class="btn-toggle-mode" id="toggleModeBtn" title="Modo Claro">
+            <img src="image/dia-e-noite.png" alt="" class="Icon">
+        </button>
+    </header>
+
+    <!-- Conteúdo principal da página de eventos -->
+    <main class="container my-5">
+        <h1 class="text-center">Eventos da Liga</h1> <br> <br>
+
+        <!-- Evento com imagem e texto ao lado -->
+        <div class="event-container">
+            <!-- Imagem do carrossel -->
+            <div id="eventCarousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="image/evento1.jpeg" class="d-block w-100" alt="Evento 1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="image/Time_evento1.jpeg" class="d-block w-100" alt="Evento 2">
+                    </div>
+                    <!-- Adicione mais itens de carrossel se necessário -->
+                </div>
+                <!-- Controles do carrossel -->
+                <a class="carousel-control-prev" href="#eventCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Anterior</span>
+                </a>
+                <a class="carousel-control-next" href="#eventCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Próximo</span>
+                </a>
+            </div>
+
+            <!-- Detalhes do evento -->
+            <div class="event-details">
+                <h2><a href="event-page.html">Roda de conversa: Discriminalização do porte de maconha para consumo!</a></h2>
+                <p>No dia 20 de agosto, a Liga Acadêmica de Direito da Univertix tem o prazer de convidá-lo para o seu primeiro evento! 🌟 <br>
+
+                    O encontro acontecerá na Biblioteca da Univertix e contará com a presença de duas figuras renomadas: a doutora Claudia Nardy e o professor Anderson Silva. <br> Eles estarão à frente de uma roda de conversa fascinante com o tema "Descriminalização do Porte de Maconha para Consumo Pessoal". 💬 <br>
+                    
+                    Este é um evento único que oferece uma oportunidade valiosa para discutir questões relevantes e atuais no campo do direito. <br> Não perca a chance de participar dessa discussão enriquecedora e se engajar com especialistas na área! <br>
+                    
+                    Marque na sua agenda e venha fazer parte deste evento significativo para a comunidade acadêmica. <br> Estamos ansiosos para vê-lo lá!</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>&copy; Liga Acadêmica de Direito da Faculdade Univertix, 2024</p>
+        <a href="https://www.instagram.com/SeuPerfilInstagram" class="footer-icon" target="_blank">
+            <i class="fab fa-instagram"></i>
+        </a>
+    </footer>
+
+    <!-- Janela lateral -->
+    <div class="side-menu" id="sideMenu">
+        <button class="close-btn" id="closeBtn">&times;</button>
+        <ul>
+            <li><a href="atas.html">Atas</a></li>
+            <li><a href="constituicao.html">Constituição da Liga</a></li>
+            <li><a href="eventos.html">Eventos</a></li>
+            <li><a href="newsletter.html">Newsletter</a></li>
+        </ul>
+    </div>
+
+    <!-- Modal para ampliar a imagem -->
+    <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <div class="modal-content">
+            <img id="modalImage" src="" style="width: 100%;">
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var menuBtn = $('#menuBtn');
+            var sideMenu = $('#sideMenu');
+            var closeBtn = $('#closeBtn');
+            var header = $('.header');
+            var footer = $('footer');
+            var toggleModeBtn = $('#toggleModeBtn');
+            var themeIcon = $('#themeIcon');
+
+            // Função para alternar o tema
+            function toggleTheme() {
+                $('body').toggleClass('dark-mode');
+                header.toggleClass('dark-mode');
+                footer.toggleClass('dark-mode');
+                $('.event-container').toggleClass('dark-mode');
+                
+                if ($('body').hasClass('dark-mode')) {
+                    themeIcon.attr('src', 'image/moon-icon.svg');
+                } else {
+                    themeIcon.attr('src', 'image/sun-icon.svg');
+                }
+            }
+
+            // Verifica a preferência do tema no localStorage
+            if (localStorage.getItem('theme') === 'dark') {
+                toggleTheme();
+            }
+
+            // Alterna o tema ao clicar no botão
+            toggleModeBtn.click(function() {
+                toggleTheme();
+                localStorage.setItem('theme', $('body').hasClass('dark-mode') ? 'dark' : 'light');
+            });
+
+            menuBtn.click(function() {
+                sideMenu.addClass('open');
+            });
+
+            closeBtn.click(function() {
+                sideMenu.removeClass('open');
+            });
+
+            // Variáveis do modal
+            var modal = $('#myModal');
+            var modalImg = $('#modalImage');
+            var span = $('.close');
+
+            // Evento de clique para abrir o modal
+            $('.carousel-item img').click(function() {
+                modal.show();
+                modalImg.attr('src', $(this).attr('src'));
+            });
+
+            // Evento de clique para fechar o modal
+            span.click(function() {
+                modal.hide();
+            });
+
+            // Fechar o modal se o usuário clicar fora da imagem
+            $(window).click(function(event) {
+                if ($(event.target).is(modal)) {
+                    modal.hide();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
