@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header d-flex justify-content-between align-items-center">
+        <a href="index.html" class="btn btn-primary">
+            <img src="image/home-01-stroke-rounded.svg" alt="Voltar para home">
+        </a>
+        <img src="image/Logo_liga.svg" alt="Logo da Liga" class="logo mx-auto">
+        <button class="btn btn-menu" type="button" id="menuBtn">
+            <img src="image/menu-aberto.png" alt="Menu Icon" class="menu-icon">
+        </button>
+        <button class="btn-toggle-mode" id="toggleModeBtn" title="Modo Claro">
+            <img src="image/dia-e-noite.png" alt="" class="Icon">
+        </button>
+    </header>
+
+    <!-- Conteúdo principal da página -->
+    <main class="container my-5">
+        <h1 class="text-center">Bem Vindo à Liga Acadêmica do Direito</h1> <br> <br>
+        <!-- Evento principal -->
+        <section class="image-text-container mb-5">
+            <img src="image/evento1.jpeg" alt="Evento Principal" class="img-fluid">
+            <div class="text">
+                <h1 class="lead"><b>O primeiro evento da Liga Acadêmica ocorrerá no dia 20 de agosto,
+                     na Biblioteca da Univertix. Contaremos com a presença da doutora Claudia Nardy
+                      e do professor Anderson Silva para uma roda de conversa com o tema: "Descriminalização
+                       do Porte de Maconha para Consumo Pessoal."</b></h1>
+            </div>
+        </section>
+        <!-- Eventos menores --><!--
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="small-event">
+                    <img src="small-event1.jpg" alt="Evento Menor 1" class="img-fluid mb-2">
+                    <p>Texto do Evento Menor 1</p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="small-event">
+                    <img src="small-event2.jpg" alt="Evento Menor 2" class="img-fluid mb-2">
+                    <p>Texto do Evento Menor 2</p>
+                </div>
+            </div>
+        </div>-->
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>&copy; Liga Acadêmica de Direito da Faculdade Univertix, 2024</p>
+        <a href="https://www.instagram.com/lad.univertixtr/" class="footer-icon" target="_blank">
+            <i class="fab fa-instagram"></i>
+        </a>
+    </footer>
+
+    <!-- Janela lateral -->
+    <div class="side-menu" id="sideMenu">
+        <button class="close-btn" id="closeBtn">&times;</button>
+        <ul>
+            <li><a href="atas.html">Atas</a></li>
+            <li><a href="constituicao.html">Constituição da Liga</a></li>
+            <li><a href="eventos.html">Eventos</a></li>
+            <li><a href="newsletter.html">Newsletter</a></li>
+        </ul>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var menuBtn = $('#menuBtn');
+            var sideMenu = $('#sideMenu');
+            var closeBtn = $('#closeBtn');
+            var header = $('.header');
+            var footer = $('footer');
+            var toggleModeBtn = $('#toggleModeBtn');
+            var themeIcon = $('#themeIcon');
+            var body = $('body');
+            var lastScrollTop = 0;
+
+            // Definir ícones para os modos claro e escuro
+            var lightModeIcon = 'image/sun-icon.svg';
+            var darkModeIcon = 'image/moon-icon.svg';
+
+            // Verificar o estado inicial do modo noturno
+            if (localStorage.getItem('darkMode') === 'true') {
+                body.addClass('dark-mode');
+                header.addClass('dark-mode');
+                footer.addClass('dark-mode');
+                themeIcon.attr('src', darkModeIcon);
+                toggleModeBtn.attr('title', 'Modo Claro');
+            }
+
+            toggleModeBtn.click(function() {
+                var isDarkMode = body.toggleClass('dark-mode').hasClass('dark-mode');
+                header.toggleClass('dark-mode', isDarkMode);
+                footer.toggleClass('dark-mode', isDarkMode);
+                themeIcon.attr('src', isDarkMode ? darkModeIcon : lightModeIcon);
+                toggleModeBtn.attr('title', isDarkMode ? 'Modo Claro' : 'Modo Escuro');
+                localStorage.setItem('darkMode', isDarkMode);
+            });
+
+            menuBtn.click(function() {
+                sideMenu.addClass('open');
+            });
+
+            closeBtn.click(function() {
+                sideMenu.removeClass('open');
+            });
+
+            $(window).scroll(function() {
+                var currentScrollTop = $(this).scrollTop();
+                header.toggleClass('hidden', currentScrollTop > lastScrollTop);
+                lastScrollTop = currentScrollTop;
+            }).trigger('scroll');
+        });
+    </script>
+</body>
+</html>

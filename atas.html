@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atas</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Link para Font Awesome para ícone do Instagram -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .header {
+            background-color: #8DD0FF;
+            padding: 15px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: top 0.3s, background-color 0.3s;
+        }
+        .header.hidden {
+            top: -80px;
+        }
+        .header .logo {
+            max-height: 50px;
+        }
+        .header .btn-primary {
+            background-color: transparent;
+            border: none;
+            padding: 0;
+        }
+        .header .btn-primary img {
+            width: 24px;
+            height: 24px;
+        }
+        .header .btn-menu {
+            background-color: transparent;
+            border: none;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .header .btn-menu .menu-icon {
+            width: 24px;
+            height: 24px;
+        }
+        .header .btn-toggle-mode {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .header .btn-toggle-mode img {
+            width: 24px;
+            height: 24px;
+        }
+        main {
+            flex: 1;
+            padding-top: 80px;
+            padding-bottom: 80px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        footer {
+            background-color: #FF8279;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            transition: opacity 0.3s, visibility 0.3s, background-color 0.3s, color 0.3s;
+        }
+        .pdf-container {
+            display: flex;
+            margin-bottom: 30px;
+        }
+        .pdf-item {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+        .pdf-item iframe {
+            width: 600px;
+            height: 400px;
+            border: 1px solid #ddd;
+        }
+        .info {
+            margin-left: 20px;
+            max-width: 600px;
+        }
+        /* Modo escuro */
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        .header.dark-mode {
+            background-color: #333;
+        }
+        footer.dark-mode {
+            background-color: #333;
+            color: #e0e0e0;
+        }
+        /* Side Menu */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 250px;
+            background-color: #fff;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            overflow-y: auto;
+            z-index: 1001;
+        }
+        .side-menu.open {
+            transform: translateX(0);
+        }
+        .side-menu .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        .side-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .side-menu ul li {
+            margin: 20px 0;
+        }
+        .side-menu ul li a {
+            text-decoration: none;
+            color: #000;
+            font-size: 18px;
+            padding: 10px 20px;
+            display: block;
+        }
+        .side-menu ul li a:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header d-flex justify-content-between align-items-center">
+        <a href="index.html" class="btn btn-primary">
+            <img src="image/home-01-stroke-rounded.svg" alt="Voltar para home">
+        </a>
+        <img src="image/Logo_liga.svg" alt="Logo da Liga" class="logo mx-auto">
+        <button class="btn btn-menu" type="button" id="menuBtn">
+            <img src="image/menu-aberto.png" alt="Menu Icon" class="menu-icon">
+        </button>
+        <button class="btn-toggle-mode" id="toggleModeBtn" title="Modo Claro">
+            <img src="image/dia-e-noite.png" alt="" class="Icon">
+        </button>
+    </header>
+
+    <!-- Conteúdo principal da página de Atas -->
+    <main class="container my-5">
+        <div class="content">
+            <h1>Atas</h1> <br>
+            <p>Aqui estão as atas com o intuito de garantir transparência e preservar
+                 a história da Liga Acadêmica de Direito da Univertix. </p> <br>
+            
+            <!-- Primeiro PDF -->
+            <div class="pdf-container">
+                <div class="pdf-item">
+                    <iframe src="caminho/para/seu/pdf/ata1.pdf" type="application/pdf">
+                        Seu navegador não suporta PDFs. <a href="caminho/para/seu/pdf/ata1.pdf">Baixe o PDF</a>.
+                    </iframe>
+                    <div class="info">
+                        <h2>Título da Ata 1</h2>
+                        <p>Descrição breve sobre a Ata 1. Inclua aqui informações importantes ou um resumo do conteúdo do PDF.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Segundo PDF -->
+            <div class="pdf-container">
+                <div class="pdf-item">
+                    <iframe src="caminho/para/seu/pdf/ata2.pdf" type="application/pdf">
+                        Seu navegador não suporta PDFs. <a href="caminho/para/seu/pdf/ata2.pdf">Baixe o PDF</a>.
+                    </iframe>
+                    <div class="info">
+                        <h2>Título da Ata 2</h2>
+                        <p>Descrição breve sobre a Ata 2. Inclua aqui informações importantes ou um resumo do conteúdo do PDF.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+   <footer>
+        <p>&copy; Liga Acadêmica de Direito da Faculdade Univertix, 2024</p>
+        <a href="https://www.instagram.com/SeuPerfilInstagram" class="footer-icon" target="_blank">
+            <i class="fab fa-instagram"></i>
+        </a>
+    </footer>
+
+    <!-- Janela lateral -->
+    <div class="side-menu" id="sideMenu">
+        <button class="close-btn" id="closeBtn">&times;</button>
+        <ul>
+            <li><a href="atas.html">Atas</a></li>
+            <li><a href="constituicao.html">Constituição da Liga</a></li>
+            <li><a href="eventos.html">Eventos</a></li>
+            <li><a href="newsletter.html">Newsletter</a></li>
+        </ul>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var menuBtn = $('#menuBtn');
+            var sideMenu = $('#sideMenu');
+            var closeBtn = $('#closeBtn');
+            var header = $('.header');
+            var footer = $('footer');
+            var toggleModeBtn = $('#toggleModeBtn');
+            var themeIcon = $('#themeIcon');
+
+            menuBtn.on('click', function() {
+                sideMenu.toggleClass('open');
+            });
+
+            closeBtn.on('click', function() {
+                sideMenu.removeClass('open');
+            });
+
+            // Modo escuro
+            function setDarkMode(isDarkMode) {
+                if (isDarkMode) {
+                    $('body').addClass('dark-mode');
+                    header.addClass('dark-mode');
+                    footer.addClass('dark-mode');
+                    themeIcon.attr('src', 'image/moon-icon.svg'); // Mudar ícone para lua
+                } else {
+                    $('body').removeClass('dark-mode');
+                    header.removeClass('dark-mode');
+                    footer.removeClass('dark-mode');
+                    themeIcon.attr('src', 'image/sun-icon.svg'); // Mudar ícone para sol
+                }
+            }
+
+            // Verificar preferência de tema
+            var isDarkMode = localStorage.getItem('darkMode') === 'true';
+            setDarkMode(isDarkMode);
+
+            toggleModeBtn.on('click', function() {
+                isDarkMode = !isDarkMode;
+                localStorage.setItem('darkMode', isDarkMode);
+                setDarkMode(isDarkMode);
+            });
+        });
+    </script>
+</body>
+</html>
